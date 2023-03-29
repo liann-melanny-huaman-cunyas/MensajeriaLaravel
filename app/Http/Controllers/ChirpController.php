@@ -116,8 +116,12 @@ class ChirpController extends Controller
      * @param  \App\Models\Chirp  $chirp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chirp $chirp)
+    public function destroy(Chirp $chirp): RedirectResponse
     {
         //
+        $this->authorize('delete', $chirp);
+        $chirp->delete();
+        return redirect(route('chirps.index'));
     }
+
 }
